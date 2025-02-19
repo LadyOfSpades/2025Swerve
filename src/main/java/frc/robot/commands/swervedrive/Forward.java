@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
 public class Forward extends Command {
+
     SwerveSubsystem swerveSubsystem;
+    
     public Forward(SwerveSubsystem subsystem) {
         swerveSubsystem = subsystem;
     }

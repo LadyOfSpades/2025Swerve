@@ -48,4 +48,11 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.2;
     public static final double TURN_CONSTANT    = .125;
   }
+  public static class MotorPID
+  {
+    public static final double p = 0.0001;
+    public static final double i = 0;
+    public static final double d = 0;
+
+  }
 }

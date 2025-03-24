@@ -32,7 +32,6 @@ public class Elevator extends SubsystemBase {
 
     public void setMotors(double speed) {
         elevatorMotorLeft.set(speed);
-        elevatorMotorRight.set(-speed);
     }
 
     public double getEncoderValue() {

@@ -32,7 +32,7 @@ public class ElevatorUp extends Command {
 
     @Override
     public void execute() {
-        elevator.setMotors(pidController.calculate(rotations));
+        elevator.setMotors(pidController.calculate(elevator.getEncoderValue(), rotations));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ElevatorUp extends Command {
             return true;
         }
         
-        return false; // Change so it stops at some point
+        return false; 
         
     }
     

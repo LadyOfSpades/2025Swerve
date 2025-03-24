@@ -119,9 +119,10 @@ public class AbsoluteDriveAdv extends Command
       resetHeading = false;
     }
     speedConstant = (SmartDashboard.getNumber("DB/Slider 0", 2.5) + 1.25) / 5;
-    turnConstant = (SmartDashboard.getNumber("DB/Slider 1", 0.25) + 1) / 10;
+    turnConstant = (SmartDashboard.getNumber("DB/Slider 1", 0.5) + 1.25);
     SmartDashboard.putString("DB/String 0", "Slider 0: Drive Speed");
     SmartDashboard.putString("DB/String 1", "Slider 1: Turn Speed");
+    System.out.println("heading x: " + headingX + ", heading y: " + headingY);
 
     ChassisSpeeds desiredSpeeds = swerve.getTargetSpeeds(vX.getAsDouble() * speedConstant, vY.getAsDouble() * speedConstant, headingX, headingY);
 
@@ -132,16 +133,20 @@ public class AbsoluteDriveAdv extends Command
     //                                       swerve.getSwerveDriveConfiguration());
     SmartDashboard.putNumber("LimitedTranslation", translation.getX());
     SmartDashboard.putString("Translation", translation.toString());
-
+    
+    swerve.drive(translation, (turnConstant * -headingAdjust.getAsDouble()), true);
     // Make the robot move
+    /*
     if (headingX == 0 && headingY == 0 && Math.abs(headingAdjust.getAsDouble()) > 0)
     {
       resetHeading = true;
+      System.out.println("Turn: "+(turnConstant * -headingAdjust.getAsDouble()));
       swerve.drive(translation, (turnConstant * -headingAdjust.getAsDouble()), true);
     } else
     {
+      System.out.println("Turn, using desiredspeeds: "+(desiredSpeeds.omegaRadiansPerSecond * turnConstant));
       swerve.drive(translation, desiredSpeeds.omegaRadiansPerSecond * turnConstant, true);
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

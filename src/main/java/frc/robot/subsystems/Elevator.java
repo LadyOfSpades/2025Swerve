@@ -36,7 +36,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public double getEncoderValue() {
-        return 0.0;
+        return (leftEnc.getPosition() - leftEncOffset + rightEnc.getPosition() - rightEncOffset)/2; // Average of the two encoder values
     }
 
     @Override

@@ -31,7 +31,7 @@ public class AutoForward extends Command {
     public void execute() {
         System.out.println("Executing time = "+timer.get()+","+forwardTranslation2d.getX()+","+forwardTranslation2d.getY());
         if (timer.get()<2){
-            swerveSubsystem.drive(new Translation2d(0.5, 0), 0, true);
+            swerveSubsystem.drive(new Translation2d(-0.5, 0), 0, true);
         } else {
             swerveSubsystem.drive(new Translation2d(0, 0), 0, true);
         }

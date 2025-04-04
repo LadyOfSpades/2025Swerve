@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
@@ -12,6 +10,7 @@ public class SpinWheel extends Command {
         this.elevator = elevator;
     
         this.forwards = forwards;
+        addRequirements(elevator);
     }
 
     public void initialize(){

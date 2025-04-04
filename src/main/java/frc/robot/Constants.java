@@ -22,7 +22,7 @@ public final class Constants
 
   public static final double ELEVATOR_LEVEL_0 = 0;
   public static final double ELEVATOR_LEVEL_1 = 0;
-  public static final double ELEVATOR_LEVEL_2 = -7.53 ;
+  public static final double ELEVATOR_LEVEL_2 = -7.53;
   public static final double ELEVATOR_LEVEL_3 = -16.5;
 
   public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound

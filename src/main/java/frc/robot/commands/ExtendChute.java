@@ -9,6 +9,7 @@ public class ExtendChute extends Command{
     public ExtendChute(Elevator elevator, double speed){
         this.elevator = elevator;
         this.speed = speed;
+        addRequirements(elevator);
     }
 
     public void initialize(){

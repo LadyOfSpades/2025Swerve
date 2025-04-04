@@ -1,13 +1,11 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Elevator;
 
 public class ElevatorUp extends Command {
@@ -22,34 +20,29 @@ public class ElevatorUp extends Command {
     CommandXboxController controller;
 
     public ElevatorUp(Elevator e, int level, CommandXboxController controller) {
-        System.out.println("constructed an elevator up");
         elevator = e;
         this.level = level;
         timer = new Timer();
         rotations = e.rightEncOffset;
         pidController = new PIDController(Constants.MotorPID.p, Constants.MotorPID.i, Constants.MotorPID.d);
         this.controller = controller;
+        addRequirements(elevator);
     }
 
     @Override
     public void initialize() {
-        System.out.println("initialized an elevator up");
         switch (level) {
             case 0:
                 elevator.setPosition(Constants.ELEVATOR_LEVEL_0);
-                System.out.println("goin to level 0");
                 break;
             case 1:
                 elevator.setPosition(Constants.ELEVATOR_LEVEL_1);
-                System.out.println("goin to level 1");
                 break;
             case 2:
                 elevator.setPosition(Constants.ELEVATOR_LEVEL_2);
-                System.out.println("goin to level 2");
                 break;
             case 3:
                 elevator.setPosition(Constants.ELEVATOR_LEVEL_3);
-                System.out.println("goin to level 3");
                 break;
         }
         timer.restart();

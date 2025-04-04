@@ -7,7 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New New Path"
+            "pathName": "CB to reef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "DepositCoral"
           }
         }
       ]

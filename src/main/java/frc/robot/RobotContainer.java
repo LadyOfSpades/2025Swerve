@@ -7,24 +7,26 @@ package frc.robot;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.DepositCoral;
 import frc.robot.commands.ElevatorUp;
 import frc.robot.commands.SpinWheel;
 import frc.robot.commands.ExtendChute;
+import frc.robot.commands.ReadyChute;
 import frc.robot.commands.swervedrive.Forward;
 import frc.robot.commands.swervedrive.auto.AutoForward;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
+
+import com.pathplanner.lib.auto.NamedCommands;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -33,18 +35,19 @@ import java.io.File;
  */
 public class RobotContainer
 {
+  
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
-  final CommandXboxController shooterXbox = new CommandXboxController(1);
+  private final CommandXboxController driverXbox = new CommandXboxController(0);
+  private final CommandXboxController shooterXbox = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
   private final Elevator elevator = new Elevator();
-  private final ElevatorUp up0 = new ElevatorUp(elevator, 0, driverXbox);
-  private final ElevatorUp up1 = new ElevatorUp(elevator, 1, driverXbox);
-  private final ElevatorUp up2 = new ElevatorUp(elevator, 2, driverXbox);
-  private final ElevatorUp up3 = new ElevatorUp(elevator, 3, driverXbox);
+  private final ElevatorUp up0 = new ElevatorUp(elevator, 0, shooterXbox);
+  private final ElevatorUp up1 = new ElevatorUp(elevator, 1, shooterXbox);
+  private final ElevatorUp up2 = new ElevatorUp(elevator, 2, shooterXbox);
+  private final ElevatorUp up3 = new ElevatorUp(elevator, 3, shooterXbox);
   private final SpinWheel spinWheel = new SpinWheel(elevator, true);
   private final SpinWheel spinWheelBackwards = new SpinWheel(elevator, false);
   private final ExtendChute extendChute = new ExtendChute(elevator, 1);
@@ -108,6 +111,8 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    NamedCommands.registerCommand("DepositCoral", new DepositCoral(elevator));
+    NamedCommands.registerCommand("ReadyChute", new ReadyChute(elevator));
     // Configure the trigger bindings
     configureBindings();
   }

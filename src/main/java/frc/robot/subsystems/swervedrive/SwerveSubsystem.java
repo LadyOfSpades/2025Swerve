@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
+import frc.robot.commands.swervedrive.auto.AutoForward;
 import frc.robot.subsystems.swervedrive.Vision.Cameras;
 import java.io.File;
 import java.io.IOException;
@@ -76,6 +77,8 @@ public class SwerveSubsystem extends SubsystemBase
    */
   private Vision vision;
 
+  public int direction = 1;
+
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
    *
@@ -111,7 +114,7 @@ public class SwerveSubsystem extends SubsystemBase
       // Stop the odometry thread if we are using vision that way we can synchronize updates better.
       swerveDrive.stopOdometryThread();
     }
-    setupPathPlanner();
+    //setupPathPlanner();
   }
 
   /**
@@ -135,6 +138,14 @@ public class SwerveSubsystem extends SubsystemBase
   public void setupPhotonVision()
   {
     vision = new Vision(swerveDrive::getPose, swerveDrive.field);
+  }
+
+  public void reverse(){
+    direction = direction * -1;
+  }
+
+  public int getDirection(){
+    return direction;
   }
 
   @Override
@@ -257,7 +268,8 @@ public class SwerveSubsystem extends SubsystemBase
   public Command getAutonomousCommand(String pathName)
   {
     // Create a path following command using AutoBuilder. This will also trigger event markers.
-    return new PathPlannerAuto(pathName);
+    //return new PathPlannerAuto(pathName);
+    return null;
   }
 
   /**

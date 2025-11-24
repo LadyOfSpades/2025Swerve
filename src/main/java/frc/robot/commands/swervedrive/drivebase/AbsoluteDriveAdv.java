@@ -28,9 +28,9 @@ public class AbsoluteDriveAdv extends Command
   private final DoubleSupplier  vX, vY;
   private final DoubleSupplier  headingAdjust;
   private final BooleanSupplier lookAway, lookTowards, lookLeft, lookRight;
-  private final Elevator elevator;
-  private final DoubleSupplier elevatorInput;
-  private final DoubleSupplier wheelInput;
+  //private final Elevator elevator;
+ // private final DoubleSupplier elevatorInput;
+  //private final DoubleSupplier wheelInput;
   private boolean resetHeading = false;
   private double speedConstant = .75, turnConstant = .125;
 
@@ -56,7 +56,7 @@ public class AbsoluteDriveAdv extends Command
    */
   public AbsoluteDriveAdv(SwerveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier headingAdjust,
                           BooleanSupplier lookAway, BooleanSupplier lookTowards, BooleanSupplier lookLeft,
-                          BooleanSupplier lookRight, Elevator elevator, DoubleSupplier elevatorInput, DoubleSupplier wheelInput)
+                          BooleanSupplier lookRight)
   {
     this.swerve = swerve;
     this.vX = vX;
@@ -66,9 +66,9 @@ public class AbsoluteDriveAdv extends Command
     this.lookTowards = lookTowards;
     this.lookLeft = lookLeft;
     this.lookRight = lookRight;
-    this.elevator = elevator;
-    this.elevatorInput = elevatorInput;
-    this.wheelInput = wheelInput;
+   // this.elevator = elevator;
+    //this.elevatorInput = elevatorInput;
+    //this.wheelInput = wheelInput;
 
     addRequirements(swerve);
   }
@@ -125,8 +125,8 @@ public class AbsoluteDriveAdv extends Command
       //Dont reset Heading Again
       resetHeading = false;
     }
-    speedConstant = (SmartDashboard.getNumber("DB/Slider 0", 2.5) + 1.25) / 1.2;
-    turnConstant = (SmartDashboard.getNumber("DB/Slider 1", 0.25) + 1) / 2;
+    speedConstant = (SmartDashboard.getNumber("DB/Slider 0", 2.5) + 1) / 2;
+    turnConstant = (SmartDashboard.getNumber("DB/Slider 1", 0.25) + 1) / 4;
     SmartDashboard.putString("DB/String 0", "Slider 0: Drive Speed");
     SmartDashboard.putString("DB/String 1", "Slider 1: Turn Speed");
 
@@ -148,15 +148,15 @@ public class AbsoluteDriveAdv extends Command
       System.out.println("translation used old: " + translation.getX() + ", " + translation.getY());
       translation = new Translation2d(vX.getAsDouble() * speedConstant, vY.getAsDouble() * speedConstant);
       System.out.println("translation used new: " + translation.getX() + ", " + translation.getY());
-      swerve.drive(translation, (turnConstant * -headingAdjust.getAsDouble()), true);
+      swerve.drive(translation, (turnConstant * headingAdjust.getAsDouble()), false);
       //System.out.println("turning w/ " + (turnConstant * -headingAdjust.getAsDouble()));
     /*} else
     {
       swerve.drive(translation, desiredSpeeds.omegaRadiansPerSecond * turnConstant, true);
       System.out.println("turning w/ " + (desiredSpeeds.omegaRadiansPerSecond * turnConstant));
     }*/
-    elevator.changePos(elevatorInput.getAsDouble() * -.25);
-    elevator.setWheel(wheelInput.getAsDouble() * .15);
+    //elevator.changePos(elevatorInput.getAsDouble() * -.1);
+    //elevator.setWheel(wheelInput.getAsDouble() * .15);
     //System.out.println("wheel" + wheelInput.getAsDouble());
   }
 

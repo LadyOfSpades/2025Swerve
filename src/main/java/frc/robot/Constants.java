@@ -49,9 +49,12 @@ public final class Constants
   {
 
     // Joystick Deadband
-    public static final double LEFT_X_DEADBAND  = 0.1;
+    public static final double LEFT_X_DEADBAND  = 0.15;
     public static final double LEFT_Y_DEADBAND  = 0.15;
     public static final double RIGHT_X_DEADBAND = 0.2;
+    public static final double SHOOTER_LEFT_X_DEADBAND  = 0.25;
+    public static final double SHOOTER_LEFT_Y_DEADBAND  = 0.25;
+    public static final double SHOOTER_RIGHT_Y_DEADBAND = 0.25;
     public static final double TURN_CONSTANT    = .125;
   }
   public static class MotorPID

@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.units.measure.LinearAcceleration;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,13 +17,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DepositCoral;
 import frc.robot.commands.ElevatorUp;
+import frc.robot.commands.ExtendActuator;
 import frc.robot.commands.SpinWheel;
 import frc.robot.commands.ExtendChute;
 import frc.robot.commands.ReadyChute;
+import frc.robot.commands.RetractActuator;
 import frc.robot.commands.swervedrive.Forward;
 import frc.robot.commands.swervedrive.auto.AutoForward;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.LinearActuator;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -39,19 +43,20 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverXbox = new CommandXboxController(0);
-  private final CommandXboxController shooterXbox = new CommandXboxController(1);
+ // private final CommandXboxController shooterXbox = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
-  private final Elevator elevator = new Elevator();
-  private final ElevatorUp up0 = new ElevatorUp(elevator, 0, shooterXbox);
-  private final ElevatorUp up1 = new ElevatorUp(elevator, 1, shooterXbox);
-  private final ElevatorUp up2 = new ElevatorUp(elevator, 2, shooterXbox);
-  private final ElevatorUp up3 = new ElevatorUp(elevator, 3, shooterXbox);
-  private final SpinWheel spinWheel = new SpinWheel(elevator, true);
-  private final SpinWheel spinWheelBackwards = new SpinWheel(elevator, false);
-  private final ExtendChute extendChute = new ExtendChute(elevator, 1);
-  private final ExtendChute retractChute = new ExtendChute(elevator, -1);
+  //private final Elevator elevator = new Elevator();
+  //private final LinearActuator linearActuator = new LinearActuator();
+  //private final ElevatorUp up0 = new ElevatorUp(elevator, 0, shooterXbox);
+  //private final ElevatorUp up1 = new ElevatorUp(elevator, 1, shooterXbox);
+  //private final ElevatorUp up2 = new ElevatorUp(elevator, 2, shooterXbox);
+  //private final ElevatorUp up3 = new ElevatorUp(elevator, 3, shooterXbox);
+  //private final SpinWheel spinWheel = new SpinWheel(elevator, true);
+  //private final SpinWheel spinWheelBackwards = new SpinWheel(elevator, false);
+  //private final ExtendActuator extendChute = new ExtendActuator(linearActuator);
+  //private final RetractActuator retractChute = new RetractActuator(linearActuator);
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
   // controls are front-left positive
@@ -69,11 +74,7 @@ public class RobotContainer
                                                                  driverXbox.getHID()::getYButtonPressed,
                                                                  driverXbox.getHID()::getAButtonPressed,
                                                                  driverXbox.getHID()::getXButtonPressed,
-                                                                 driverXbox.getHID()::getBButtonPressed, 
-                                                                 elevator, 
-                                                                 () -> -MathUtil.applyDeadband(shooterXbox.getRightY(),
-                                                                                               OperatorConstants.RIGHT_X_DEADBAND),
-                                                                () -> MathUtil.applyDeadband(shooterXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND));
+                                                                 driverXbox.getHID()::getBButtonPressed);
 
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
@@ -111,8 +112,8 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    NamedCommands.registerCommand("DepositCoral", new DepositCoral(elevator));
-    NamedCommands.registerCommand("ReadyChute", new ReadyChute(elevator));
+    //NamedCommands.registerCommand("DepositCoral", new DepositCoral(elevator));
+    //NamedCommands.registerCommand("ReadyChute", new ReadyChute(elevator));
     // Configure the trigger bindings
     configureBindings();
   }
@@ -145,7 +146,7 @@ public class RobotContainer
     } else
     {
       //driverXbox.a().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      //driverXbox.start().onTrue((Commands.runOnce(drivebase::zeroGyro)));
       //driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       //driverXbox.b().whileTrue(
       //    drivebase.driveToPose(
@@ -157,14 +158,14 @@ public class RobotContainer
       driverXbox.a().onTrue(new ElevatorUp(elevator, 2, driverXbox));
       driverXbox.x().onTrue(new ElevatorUp(elevator, 3, driverXbox));      //driverXbox.start().whileTrue(Commands.none());
       */
-      shooterXbox.y().onTrue(up0);
-      shooterXbox.b().onTrue(up1);
-      shooterXbox.a().onTrue(up2);
-      shooterXbox.x().onTrue(up3);
-      shooterXbox.rightBumper().whileTrue(extendChute);
-      shooterXbox.leftBumper().whileTrue(retractChute);
-      shooterXbox.start().onTrue((Commands.runOnce(elevator::zeroEncoders)));
-      shooterXbox.back().onTrue((Commands.runOnce(elevator::printPos)));
+      //shooterXbox.y().onTrue(up0);
+      //shooterXbox.b().onTrue(up1);
+      //shooterXbox.a().onTrue(up2);
+      //shooterXbox.x().onTrue(up3);
+      //shooterXbox.rightBumper().whileTrue(extendChute);
+      //shooterXbox.leftBumper().whileTrue(retractChute);
+      //shooterXbox.start().onTrue((Commands.runOnce(elevator::zeroEncoders)));
+      //shooterXbox.back().onTrue((Commands.runOnce(elevator::printPos)));
      // driverXbox.back().whileTrue(Commands.none());
       //driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       //driverXbox.rightBumper().onTrue(Commands.none());
@@ -182,8 +183,8 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return new AutoForward(drivebase, elevator);
-    //return new AutoForeward(drivebase);
+    //return new AutoForward(drivebase, elevator);
+    return new AutoForward(drivebase);
     //return new Forward(drivebase);
   }
 

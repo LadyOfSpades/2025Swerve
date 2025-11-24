@@ -11,13 +11,13 @@ public class AutoForward extends Command {
     private Timer timer;
     private Translation2d forwardTranslation2d = new Translation2d(-1, 0);
     private Translation2d stopTranslation2d = new Translation2d(0, 0);
-    private Elevator elevator;
+    //private Elevator elevator;
 
-    public AutoForward(SwerveSubsystem subsystem, Elevator elevator) {
+    public AutoForward(SwerveSubsystem subsystem) {
         swerveSubsystem = subsystem;
         timer = new Timer();
         addRequirements(swerveSubsystem);
-        this.elevator = elevator;
+        //this.elevator = elevator;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class AutoForward extends Command {
         } else {
             swerveSubsystem.drive(new Translation2d(0, 0), 0, true);
         }
-        elevator.setChute(1);
+       // elevator.setChute(1);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class AutoForward extends Command {
     @Override
     public void end(boolean interrupted) {
         swerveSubsystem.drive(new Translation2d(0, 0), 0, true);
-        elevator.setChute(0);
+       // elevator.setChute(0);
         System.out.println("Ended auto forward");
     }
 } 

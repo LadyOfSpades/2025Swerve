@@ -26,7 +26,7 @@ public class Elevator extends SubsystemBase {
     private SparkAbsoluteEncoder leftEnc;
     private RelativeEncoder rightEnc;
     private SparkClosedLoopController closedLoopController;
-    private Spark chuteMotor;
+    //private Spark chuteMotor;
     
     private double leftEncOffset;
     public double rightEncOffset;
@@ -40,7 +40,7 @@ public class Elevator extends SubsystemBase {
         wheelMotor = new SparkFlex(11, MotorType.kBrushless);
         leftEnc = elevatorMotorLeft.getAbsoluteEncoder();
         rightEnc = elevatorMotorRight.getEncoder();
-        chuteMotor = new Spark(0);
+        //chuteMotor = new Spark(0);
         zeroEncoders();
         closedLoopController = elevatorMotorRight.getClosedLoopController();
         elevatorPos = rightEncOffset;
@@ -96,7 +96,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public void setChute(double speed){
-        chuteMotor.set(speed);
+        //chuteMotor.set(speed);
     }
 
     @Override

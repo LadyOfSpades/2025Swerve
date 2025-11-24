@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Elevator;
 
+@Deprecated
 public class ReadyChute extends ExtendChute {
     Timer timer;
     public ReadyChute(Elevator elevator){

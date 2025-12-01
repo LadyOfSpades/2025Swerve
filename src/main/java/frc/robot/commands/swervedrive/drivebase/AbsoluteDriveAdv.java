@@ -125,8 +125,8 @@ public class AbsoluteDriveAdv extends Command
       //Dont reset Heading Again
       resetHeading = false;
     }
-    speedConstant = (SmartDashboard.getNumber("DB/Slider 0", 2.5) + 1) / 2;
-    turnConstant = (SmartDashboard.getNumber("DB/Slider 1", 0.25) + 1) / 4;
+    speedConstant = (SmartDashboard.getNumber("DB/Slider 0", 2.5) + 1);
+    turnConstant = (SmartDashboard.getNumber("DB/Slider 1", 0.25) + 1);
     SmartDashboard.putString("DB/String 0", "Slider 0: Drive Speed");
     SmartDashboard.putString("DB/String 1", "Slider 1: Turn Speed");
 
@@ -149,7 +149,8 @@ public class AbsoluteDriveAdv extends Command
       translation = new Translation2d(vX.getAsDouble() * speedConstant, vY.getAsDouble() * speedConstant);
       System.out.println("translation used new: " + translation.getX() + ", " + translation.getY());
       swerve.drive(translation, (turnConstant * headingAdjust.getAsDouble()), false);
-      //System.out.println("turning w/ " + (turnConstant * -headingAdjust.getAsDouble()));
+      System.out.println("turning w/ " + (turnConstant * -headingAdjust.getAsDouble()) +", " + turnConstant);
+      System.out.println("speed constant: " + speedConstant);
     /*} else
     {
       swerve.drive(translation, desiredSpeeds.omegaRadiansPerSecond * turnConstant, true);

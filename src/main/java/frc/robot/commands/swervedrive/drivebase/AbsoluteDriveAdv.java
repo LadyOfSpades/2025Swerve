@@ -125,7 +125,7 @@ public class AbsoluteDriveAdv extends Command
       //Dont reset Heading Again
       resetHeading = false;
     }
-    speedConstant = (SmartDashboard.getNumber("DB/Slider 0", 2.5) + 1);
+    speedConstant = (SmartDashboard.getNumber("DB/Slider 0", 2.5))/1.5;
     turnConstant = (SmartDashboard.getNumber("DB/Slider 1", 0.25) + 1);
     SmartDashboard.putString("DB/String 0", "Slider 0: Drive Speed");
     SmartDashboard.putString("DB/String 1", "Slider 1: Turn Speed");
